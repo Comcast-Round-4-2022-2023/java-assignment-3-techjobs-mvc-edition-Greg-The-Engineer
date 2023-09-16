@@ -14,14 +14,17 @@ import java.util.HashMap;
 
 /**
  * Created by LaunchCode
+ * This is a controller class for handling job listings and related operations.
  */
 @Controller
 @RequestMapping(value = "list")
 public class ListController {
 
+    // Static HashMaps to store column choices and table choices
     static HashMap<String, String> columnChoices = new HashMap<>();
     static HashMap<String, Object> tableChoices = new HashMap<>();
 
+    // Constructor to initialize column and table choices
     public ListController () {
         columnChoices.put("all", "All");
         columnChoices.put("employer", "Employer");
@@ -34,19 +37,20 @@ public class ListController {
         tableChoices.put("positionType", JobData.getAllPositionTypes());
         tableChoices.put("coreCompetency", JobData.getAllCoreCompetency());
     }
-
+    // Handler for the default list view
     @GetMapping(value = "")
     public String list(Model model) {
         model.addAttribute("columns", columnChoices);
-        model.addAttribute("tableChoices", tableChoices);
+        model.addAttribute("tableChoices", tableChoices); // Include the "all" category
         model.addAttribute("employers", JobData.getAllEmployers());
         model.addAttribute("locations", JobData.getAllLocations());
         model.addAttribute("positions", JobData.getAllPositionTypes());
         model.addAttribute("skills", JobData.getAllCoreCompetency());
 
-        return "list";
+        return "list"; // Returns the "list" template
     }
 
+    // Handler for listing jobs by a specific column and value
     @GetMapping(value = "jobs")
     public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam(required = false) String value) {
         ArrayList<Job> jobs;
@@ -59,6 +63,6 @@ public class ListController {
         }
         model.addAttribute("jobs", jobs);
 
-        return "list-jobs";
+        return "list-jobs"; // Returns the "list-jobs" template
     }
 }

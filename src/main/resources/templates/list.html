@@ -1,36 +1,43 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org/">
-    <head th:replace="fragments :: head"></head>
+<!DOCTYPE html> <!-- Declaration specifying HTML5 document -->
+<html xmlns:th="http://www.thymeleaf.org/"> <!-- HTML root element with Thymeleaf namespace -->
 
-    <body>
+<head th:replace="fragments :: head"></head> <!-- Include external 'head' fragment -->
 
-        <div th:replace="fragments :: page-header"></div>
+<body> <!-- Start of the HTML body -->
 
-        <div class="container body-content">
-            <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
-            <h2 class = "centered">View Jobs By Category</h2>
-        </div>
+<div th:replace="fragments :: page-header"></div> <!-- Include external 'page-header' fragment -->
 
-        <table class="centeredTable">
-            <tr>
-                <th:block th:each="column : ${columns}">
-                    <th th:text = "${column.value}"></th>
-                </th:block>
-            </tr>
-            <tr>
-                <!-- TODO #2: Complete the View Jobs By Category Table. -->
+<div class="container body-content"> <!-- Container for main content -->
+    <h1 th:text="${#strings.capitalizeWords(title)}"></h1> <!-- Display title with capitalized words -->
+    <h2 class="centered">View Jobs By Category</h2> <!-- Display a centered heading -->
+</div>
 
-                <td></td> <!-- Feel free to remove or modify this element if necessary. -->
+<table class="centeredTable"> <!-- Centered table -->
+    <tr> <!-- Table row for column headers -->
+        <th:block th:each="column : ${columns}"> <!-- Iterate through 'columns' -->
+            <th th:text = "${column.value}"></th> <!-- Table header cell with column name -->
+        </th:block>
+    </tr>
+    <tr> <!-- Table row for category links -->
+        <!-- TODO #2: Complete the View Jobs By Category Table. -->
 
-                <td th:each="category : ${tableChoices}">
-                    <ul>
-                        <li th:each="item : ${category.value}">
-                            <a th:href="@{/list/jobs(column=${category.key},value=${item})}" th:text="${item}"></a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        </table>
+        <!--                <td></td> &lt;!&ndash; Feel free to remove or modify this element if necessary. &ndash;&gt;-->
 
-    </body>
+        <td th:each="category : ${tableChoices}"> <!-- Iterate through 'tableChoices' -->
+            <ul> <!-- Unordered list for category items -->
+                <li th:each="item : ${category.value}"> <!-- Iterate through items in the category -->
+                    <a th:href="@{/list/jobs(column=${category.key},value=${item})}" th:text="${item}"></a>
+                    <!--
+                    Create a link with the 'item' value as text and generate an 'href' attribute for filtering jobs
+                    based on the category and item selected.
+                    -->
+                    <a th:href="@{/list/jobs(column='all', value=null)}">View All</a>
+                    <!-- Create a "View All" link to view all jobs without specifying a specific category and item. -->
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+</body>
 </html>

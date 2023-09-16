@@ -6,4 +6,8 @@ public class Location extends JobField {
         super(value);
     }
 
+    // Add a public getter method for the name property
+    public String getName() {
+        return super.getValue();
+    }
 }
