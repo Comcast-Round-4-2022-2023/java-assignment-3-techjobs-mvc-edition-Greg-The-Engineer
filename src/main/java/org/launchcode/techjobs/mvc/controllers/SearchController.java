@@ -16,11 +16,13 @@ import static org.launchcode.techjobs.mvc.controllers.ListController.columnChoic
 
 /**
  * Created by LaunchCode
+ * This is a controller class for handling job searches and displaying search results.
  */
 @Controller
 @RequestMapping("search")
 public class SearchController {
 
+    // Handler for the search view
     @GetMapping(value = "")
     public String search(Model model) {
         model.addAttribute("columns", columnChoices);
@@ -28,6 +30,7 @@ public class SearchController {
     }
 
     // TODO #3 - Create a handler to process a search request and render the updated search view.
+    // Handler for processing search requests and rendering search results
     @PostMapping("results")
     public String displaySearchResults(Model model, @RequestParam  String searchType, @RequestParam String searchTerm) {
         ArrayList<Job> jobs;
@@ -41,7 +44,7 @@ public class SearchController {
         model.addAttribute("columns", columnChoices);
         model.addAttribute("jobs",jobs);
 
-        return "search";
+        return "search"; // Returns the "search" template with updated search results
     }
 
 
