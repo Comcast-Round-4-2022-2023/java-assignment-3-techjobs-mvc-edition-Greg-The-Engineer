@@ -38,7 +38,7 @@ public class ListController {
     @GetMapping(value = "")
     public String list(Model model) {
         model.addAttribute("columns", columnChoices);
-        model.addAttribute("tableChoices", tableChoices);
+        model.addAttribute("tableChoices", tableChoices); // Include the "all" category
         model.addAttribute("employers", JobData.getAllEmployers());
         model.addAttribute("locations", JobData.getAllLocations());
         model.addAttribute("positions", JobData.getAllPositionTypes());
